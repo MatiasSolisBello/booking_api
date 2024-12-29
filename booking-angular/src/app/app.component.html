@@ -1,6 +1,7 @@
 <div id="app">
   <nav class="navbar navbar-expand navbar-dark bg-dark">
-    <a href="#" class="navbar-brand">Booking App</a>
+    <div class="container">
+      <a href="#" class="navbar-brand">Booking App</a>
     <ul class="navbar-nav mr-auto" routerLinkActive="active">
       <li class="nav-item">
         <a href="/home" class="nav-link" routerLink="home">Home </a>
@@ -8,6 +9,9 @@
       @if (showAdminBoard) {
         <li class="nav-item">
           <a href="/admin" class="nav-link" routerLink="admin">Admin Board</a>
+        </li>
+        <li class="nav-item">
+          <a href="/service" class="nav-link" routerLink="service">Service</a>
         </li>
       }
       @if (showModeratorBoard) {
@@ -41,6 +45,7 @@
         </li>
       </ul>
     }
+    </div>
   </nav>
 
   <div class="container">

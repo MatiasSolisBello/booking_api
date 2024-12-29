@@ -15,6 +15,7 @@ export class BoardAdminComponent implements OnInit {
     this.userService.getAdminBoard().subscribe({
       next: data => {
         this.content = data;
+        console.log('DATA: ', data);
       },
       error: err => {
         if (err.error) {
