@@ -26,7 +26,7 @@ public class DepartmentController {
 
     @GetMapping("/department")
     @PreAuthorize("hasRole('ADMIN')")
-    public List<Department> getAllDepartments(){
+    public List<Department> getAllDepartment(){
         return departmentRepository.findAll();
     }
 

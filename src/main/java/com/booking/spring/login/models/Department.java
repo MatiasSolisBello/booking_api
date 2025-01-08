@@ -4,6 +4,9 @@ import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
 
+import java.util.ArrayList;
+import java.util.List;
+
 @Entity
 public class Department {
     @Id
@@ -27,6 +30,7 @@ public class Department {
     @Size(max = 100)
     @Column
     private String description;
+
 
     public Department() {
     }
