@@ -1,3 +1,16 @@
-/venv
-db.sqlite3
-*/__pycache__/
+# byte-compiled / optimized / DLL files
+__pycache__/
+*.py[cod]
+
+# database & logs
+*.sqlite3
+
+# venv
+env
+venv
+.env
+
+# custom editor config
+.vscode/
+
+__init__.*
