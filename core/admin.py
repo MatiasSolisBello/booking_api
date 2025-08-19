@@ -1,7 +1,7 @@
 from django.contrib import admin
-from .models import Apartment, Availability, Service
+from .models import Apartment, ApartmentService, Availability, Booking, Service
 
 # Register your models here.
 admin.site.register([
-    Apartment, Availability, Service
+    Apartment, ApartmentService, Availability, Booking, Service
 ])
