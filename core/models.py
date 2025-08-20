@@ -21,6 +21,12 @@ class Apartment(models.Model):
     def __str__(self):
         return f"{self.name} - {self.city}"
     
+class ApartmentImages(models.Model):
+    apartment = models.ForeignKey(Apartment, on_delete=models.CASCADE, related_name = "images")
+    image = models.ImageField(upload_to="img", default="", null=True, blank=True)
+    
+    def __str__(self):
+        return f"Imagen de {self.apartment.name}"
     
 class Availability(models.Model):
     '''
