@@ -1,8 +1,6 @@
-from django.db.models import Prefetch
-from django.shortcuts import render
 from rest_framework import viewsets
 from rest_framework.decorators import action
-from rest_framework.permissions import IsAuthenticated
+#from rest_framework.permissions import IsAuthenticated
 from rest_framework.response import Response
 from .models import Booking, Service, Apartment
 from .serializers import BookingSerializer, ServiceSerializer, ApartmentSerializer

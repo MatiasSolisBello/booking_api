@@ -1,5 +1,6 @@
 from .models import ApartmentImages, Booking, Service, Apartment, ApartmentService
 from django.contrib.auth.models import User
+from django.db.models import Q
 from rest_framework import serializers
 
 class ServiceSerializer(serializers.ModelSerializer):
@@ -30,8 +31,7 @@ class ApartmentServiceSerializer(serializers.ModelSerializer):
     class Meta:
         model = ApartmentService
         fields = ['name', 'price']
-    
-    
+     
 class ApartmentSerializer(serializers.ModelSerializer):
     '''
     Serializador de Departamento.
@@ -63,19 +63,13 @@ class ApartmentSerializer(serializers.ModelSerializer):
         ]
         
     def create(self, validated_data):
-        print(validated_data)
         uploaded_images = validated_data.pop("uploaded_images")
         apartment = Apartment.objects.create(**validated_data)
-        print('----------------')
-        print('apartment: ', apartment)
-        print('uploaded_images: ', uploaded_images)
-        print('----------------')
         for image in uploaded_images:
             new_image = ApartmentImages.objects.create(apartment=apartment, 
                                                        image=image)
         return apartment
         
-
 class UserSerializer(serializers.ModelSerializer):
     '''
     Serializador de Usuario.
@@ -86,12 +80,19 @@ class UserSerializer(serializers.ModelSerializer):
             'username', 'email'
         ]
     
-    
 class BookingSerializer(serializers.ModelSerializer):
     '''
     Serializador de reservas.
     Incluye los datos del departamento y cliente.
     '''
+    user_id = serializers.PrimaryKeyRelatedField(
+        source='user',
+        queryset=User.objects.all()
+    )
+    apartment_id = serializers.PrimaryKeyRelatedField(
+        source='apartment',
+        queryset=Apartment.objects.all()
+    )
     
     user = UserSerializer(read_only=True)
     #user = serializers.CharField(source='user.username', read_only=True)
@@ -108,4 +109,23 @@ class BookingSerializer(serializers.ModelSerializer):
     #def get_services(self, obj):
     #    services = Service.objects.filter(services__apartment=obj.apartment)
     #    return ServiceSerializer(services, many=True).data
+    
+    def create(self, validated_data):
+        apartment = validated_data['apartment']
+        start_date = validated_data['start_date']
+        end_date = validated_data['end_date']
+        
+        # Buscar reservas que se solapan con el rango solicitado
+        check_avaibility = Booking.objects.filter(apartment=apartment).filter(
+            Q(start_date__lt=end_date) & Q(end_date__gt=start_date)
+        )
+
+        if check_avaibility:
+            start_date=start_date.strftime("%d/%m/%Y")
+            end_date=end_date.strftime("%d/%m/%Y")
+            raise serializers.ValidationError(
+                f"El departamento no está disponible entre {start_date} al {end_date}")
+        else:
+            booking = Booking.objects.create(**validated_data)
+            return booking
     
