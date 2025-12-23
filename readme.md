@@ -32,9 +32,23 @@ Ejecutar servidor
 python manage.py runserver
 ```
 
+Abrir el link: http://127.0.0.1:8000/api/schema/swagger-ui/
+
 ## Otros comandos
 Verificar version de Python y Django respectivamente
 ```bash
 python --version
 python -m django --version
 ```
+
+## Librerias:
+* djangorestframework_simplejwt
+* psycopg
+* drf-spectacular
+* djoser
+
+## Diagrama de flujo
+[Pendiente]
+
+## Rutas
+[Pendiente]

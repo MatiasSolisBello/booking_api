@@ -5,3 +5,4 @@ psycopg==3.2.9
 drf-spectacular==0.28.0
 djoser==2.3.3
 pillow==11.3.0
+python-dotenv==1.2.1
