@@ -1,6 +1,6 @@
 from rest_framework import viewsets
 from rest_framework.decorators import action
-#from rest_framework.permissions import IsAuthenticated
+from rest_framework.permissions import IsAuthenticated
 from rest_framework.response import Response
 from .models import Booking, Service, Apartment
 from .serializers import BookingSerializer, ServiceSerializer, ApartmentSerializer
@@ -18,7 +18,7 @@ class ApartmentViewset(viewsets.ModelViewSet):
     serializer_class = ApartmentSerializer
     
 class BookingViewset(viewsets.ModelViewSet):
-    #permission_classes = [IsAuthenticated]
+    permission_classes = [IsAuthenticated]
     queryset = Booking.objects.all()
     serializer_class = BookingSerializer
     

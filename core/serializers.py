@@ -27,10 +27,11 @@ class ApartmentServiceSerializer(serializers.ModelSerializer):
     '''
     name = serializers.CharField(source='service.name')
     price = serializers.CharField(source='service.price')
+    icon = serializers.CharField(source='service.icon')
 
     class Meta:
         model = ApartmentService
-        fields = ['name', 'price']
+        fields = ['name', 'price', 'icon']
      
 class ApartmentSerializer(serializers.ModelSerializer):
     '''
@@ -39,7 +40,7 @@ class ApartmentSerializer(serializers.ModelSerializer):
     '''
     
     # Agregar datos del servicio relacionado al departamento
-    #services = ApartmentServiceSerializer(source='apartments', many=True)
+    services = ApartmentServiceSerializer(source='apartments', many=True)
     
     images = ApartmentImagesSerializer(many=True, read_only=True)
     uploaded_images = serializers.ListField(
@@ -59,7 +60,8 @@ class ApartmentSerializer(serializers.ModelSerializer):
             'bathrooms',
             'description',
             'images',
-            'uploaded_images'
+            'uploaded_images',
+            'services'
         ]
         
     def create(self, validated_data):

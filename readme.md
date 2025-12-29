@@ -48,7 +48,5 @@ python -m django --version
 * djoser
 
 ## Diagrama de flujo
-[Pendiente]
+![](docs/class_diagram.png)
 
-## Rutas
-[Pendiente]

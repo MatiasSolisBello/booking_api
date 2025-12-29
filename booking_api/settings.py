@@ -9,6 +9,7 @@ https://docs.djangoproject.com/en/5.2/topics/settings/
 For the full list of settings and their values, see
 https://docs.djangoproject.com/en/5.2/ref/settings/
 """
+from datetime import timedelta
 import os
 from dotenv import load_dotenv
 from pathlib import Path
@@ -40,8 +41,10 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     
     'rest_framework',
-    'rest_framework.authtoken',
+    #'rest_framework.authtoken',
+    
     'rest_framework_simplejwt',
+    'rest_framework_simplejwt.token_blacklist',
     
     'drf_spectacular',
     'djoser',
@@ -139,9 +142,13 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 
 REST_FRAMEWORK = {
+    
+    # Todo endpoint protegido espera Bearer <JWT>
     'DEFAULT_AUTHENTICATION_CLASSES': (
         'rest_framework_simplejwt.authentication.JWTAuthentication',
     ),
+    
+    # Esquema OpenAPI automático
     'DEFAULT_SCHEMA_CLASS': 'drf_spectacular.openapi.AutoSchema',
 }
 
@@ -150,6 +157,25 @@ SPECTACULAR_SETTINGS = {
     'DESCRIPTION': 'Rest API for booking apartments and services',
     'VERSION': '1.0.0',
     'SERVE_INCLUDE_SCHEMA': False,
+}
+
+
+SIMPLE_JWT = {
+    'ACCESS_TOKEN_LIFETIME': timedelta(minutes=5),
+    'REFRESH_TOKEN_LIFETIME': timedelta(days=1),
+
+    'ROTATE_REFRESH_TOKENS': True,
+    'BLACKLIST_AFTER_ROTATION': True,
+    
+    'AUTH_HEADER_TYPES': ('Bearer',),
+}
+
+DJOSER = {
+    'LOGIN_FIELD': 'email',  # o 'username'
+    'AUTHENTICATION_BACKENDS': (
+        'django.contrib.auth.backends.ModelBackend',
+    ),
+    'TOKEN_MODEL': None,  # CLAVE: desactiva tokens DRF
 }
 
 MEDIA_URL = '/media/'
