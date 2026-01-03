@@ -1,7 +1,9 @@
 from rest_framework import viewsets
 from rest_framework.decorators import action
-from rest_framework.permissions import IsAuthenticated
+from rest_framework.permissions import AllowAny, IsAdminUser, IsAuthenticated
 from rest_framework.response import Response
+
+from core.permissions import IsAdminOrReadOnly
 from .models import Booking, Service, Apartment
 from .serializers import BookingSerializer, ServiceSerializer, ApartmentSerializer
 
@@ -11,11 +13,14 @@ class ServiceViewset(viewsets.ModelViewSet):
     #permission_classes = [IsAuthenticated]
     queryset = Service.objects.all().order_by('id')
     serializer_class = ServiceSerializer
+    permission_classes = [IsAdminOrReadOnly]
     
 class ApartmentViewset(viewsets.ModelViewSet):
     #permission_classes = [IsAuthenticated]
     queryset = Apartment.objects.all()
     serializer_class = ApartmentSerializer
+    permission_classes = [IsAdminOrReadOnly]
+    
     
 class BookingViewset(viewsets.ModelViewSet):
     permission_classes = [IsAuthenticated]

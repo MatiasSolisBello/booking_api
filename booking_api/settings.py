@@ -171,7 +171,7 @@ SIMPLE_JWT = {
 }
 
 DJOSER = {
-    'LOGIN_FIELD': 'email',  # o 'username'
+    #'LOGIN_FIELD': 'email',  # o 'username'
     'AUTHENTICATION_BACKENDS': (
         'django.contrib.auth.backends.ModelBackend',
     ),
