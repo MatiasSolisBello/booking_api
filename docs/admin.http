@@ -10,8 +10,10 @@ Content-Type: application/json
     "password": "123"
 }
 
+
 ###
 @token_key = {{ login.response.body.access }}
+
 
 # Verificar token
 POST {{base_url}}/auth/jwt/verify/ HTTP/1.1
@@ -20,6 +22,7 @@ Content-Type: application/json
 {
     "token": "{{token_key}}"
 }
+
 
 ### Refrescar token
 POST {{base_url}}/auth/jwt/refresh/ HTTP/1.1
@@ -31,13 +34,16 @@ Content-Type: application/json
 
 @token_key = {{ login.response.body.access }}
 
+
 ### Reservas (Bookings)
 GET {{base_url}}/api/bookings/ HTTP/1.1
 Authorization: Bearer {{token_key}}
 
+
 ### Reservas por usuario
 GET {{base_url}}/api/bookings/user/1 HTTP/1.1
 Authorization: Bearer {{token_key}}
+
 
 ### Crear reserva
 POST {{base_url}}/api/bookings/ HTTP/1.1
@@ -63,3 +69,26 @@ DELETE {{base_url}}/api/bookings/19 HTTP/1.1
 Authorization: Bearer {{token_key}}
 
 
+### Ver departamento
+GET {{base_url}}/api/apartments HTTP/1.1
+Authorization: Bearer {{token_key}}
+
+
+### Ver departamento
+GET {{base_url}}/api/apartments/1 HTTP/1.1
+Authorization: Bearer {{token_key}}
+
+
+### Ver servicios
+GET {{base_url}}/api/services HTTP/1.1
+Authorization: Bearer {{token_key}}
+
+
+### Ver usuarios (Admin)
+GET {{base_url}}/auth/users/ HTTP/1.1
+Authorization: Bearer {{token_key}}
+
+
+### Ver usuarios (Admin)
+GET {{base_url}}/auth/users/me HTTP/1.1
+Authorization: Bearer {{token_key}}

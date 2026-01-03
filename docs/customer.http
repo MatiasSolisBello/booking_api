@@ -1,0 +1,29 @@
+# variables
+@base_url = http://127.0.0.1:8000
+
+
+# @name login
+POST {{base_url}}/auth/jwt/create/ HTTP/1.1
+Content-Type: application/json
+
+{
+    "username": "ErenYaeger",
+    "password": "12345"
+}
+
+
+### -----------------
+@token_key = {{ login.response.body.access }}
+
+
+### Ver departamento (SIN TOKEN)
+GET {{base_url}}/api/apartments HTTP/1.1
+
+
+### Ver servicios (SIN TOKEN)
+GET {{base_url}}/api/services HTTP/1.1
+
+
+### Ver reservas (SIN TOKEN)
+GET {{base_url}}/api/bookings HTTP/1.1
+Authorization: Bearer {{token_key}}
