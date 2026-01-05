@@ -11,12 +11,12 @@ User = get_user_model()
 # Create your tests here.
 class TestApartmentAPI(APITestCase):
     def setUp(self):
-        self.admin_user = User.objects.create_superuser(username='admin', 
-                                                        email='admin@example.com',
-                                                        password='adminpass')
-        self.normal_user = User.objects.create_user(username='user',
-                                                    email='user@example.com', 
-                                                    password='userpass')
+        #self.admin_user = User.objects.create_superuser(username='admin', 
+        #                                                email='admin@example.com',
+        #                                                password='adminpass')
+        #self.normal_user = User.objects.create_user(username='user',
+        #                                            email='user@example.com', 
+        #                                            password='userpass')
         
         self.apartment = Apartment.objects.create(
             name='Test Apartment',

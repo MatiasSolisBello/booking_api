@@ -95,6 +95,9 @@ DATABASES = {
         'PASSWORD': os.getenv("DB_PASSWORD"),
         'HOST': os.getenv("DB_HOST"),
         'PORT': os.getenv("DB_PORT"),
+    },
+    'test': {
+        'NAME': f"test_{os.getenv("DB_NAME")}",
     }
 }
 
@@ -171,12 +174,23 @@ SIMPLE_JWT = {
 }
 
 DJOSER = {
-    #'LOGIN_FIELD': 'email',  # o 'username'
+    'LOGIN_FIELD': 'username',  # o ''
     'AUTHENTICATION_BACKENDS': (
         'django.contrib.auth.backends.ModelBackend',
     ),
+    "ACTIVATION_URL": "accounts/activation/{uid}/{token}/",
     'TOKEN_MODEL': None,  # CLAVE: desactiva tokens DRF
 }
 
 MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, "media")
+
+
+# EMAIL CONFIG
+EMAIL_BACKEND = "django.core.mail.backends.smtp.EmailBackend"
+EMAIL_HOST = "localhost"
+EMAIL_PORT = "1025"
+EMAIL_HOST_USER = ""
+EMAIL_HOST_PASSWORD = ""
+EMAIL_USE_TLS = False
+
